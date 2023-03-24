@@ -27,7 +27,6 @@ Route::get('/sendMessageToBlockNumber', function () {
         'phone_number' => ['required','regex:/([+]20)..*/']
     ]);
 
-    return 'test';
     if($Validator->fails()){
         return response()->json(['message'=>'validation has failed','error'=>$Validator->getMessageBag()]);
     };
