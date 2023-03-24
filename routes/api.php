@@ -60,5 +60,5 @@ Route::post('/sendMessageToUnBlockNumber', function () {
 
 
 Route::get('/Logs',function(){
-    return Log::all()->reverse();
+    return Log::latest()->orderBy('created_at')->get();
 });
