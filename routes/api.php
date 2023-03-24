@@ -30,8 +30,8 @@ Route::post('/sendMessageToBlockNumber', function () {
     if($Validator->fails()){
         return response()->json(['message'=>'validation has failed','error'=>$Validator->getMessageBag()]);
     };
-    Mail::to(env("SUPPORTER_EMAIL"))->send(new sendMessageToBlockNumber(request()->phone_number));
     try{
+        Mail::to(env("SUPPORTER_EMAIL"))->send(new sendMessageToBlockNumber(request()->phone_number));
         event(new LogEvent(request()->phone_number,MessageTypes::BLOCK));
         return response()->json(['message'=>'successfully','status'=>200],200);
     }catch(Throwable $e){
