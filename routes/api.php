@@ -27,16 +27,17 @@ Route::post('/sendMessageToBlockNumber', function () {
         'phone_number' => ['required','regex:/([+]20)..*/']
     ]);
 
+
     if($Validator->fails()){
         return response()->json(['message'=>'validation has failed','error'=>$Validator->getMessageBag()]);
     };
-
+    
     try{
         Mail::to(env("SUPPORTER_EMAIL"))->send(new sendMessageToBlockNumber(request()->phone_number));
         event(new LogEvent(request()->phone_number,MessageTypes::BLOCK));
         return response()->json(['message'=>'successfully','status'=>200],200);
     }catch(Throwable $e){
-        return response()->json(['message'=>'failed','status'=>500,'error'=>$e],200);
+        return response()->json(['message'=>'failed','status'=>500,'error'=>$e],500);
     }
 
 });
