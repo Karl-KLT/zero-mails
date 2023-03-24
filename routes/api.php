@@ -35,7 +35,7 @@ Route::post('/sendMessageToBlockNumber', function () {
         event(new LogEvent(request()->phone_number,MessageTypes::BLOCK));
         return response()->json(['message'=>'successfully','status'=>200],200);
     }catch(Throwable $e){
-        return $e;
+        return response()->json(['message'=>'failed','status'=>500,'error'=>$e],200);
     }
 
 });
