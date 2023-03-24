@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Validator;
 |
 */
 
-Route::get('/sendMessageToBlockNumber', function () {
+Route::post('/sendMessageToBlockNumber', function () {
 
     $Validator = Validator::make(request()->all(),[
         'phone_number' => ['required','regex:/([+]20)..*/']
